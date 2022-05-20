@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/invoice.css' %}">
+
+</head>
+
+<body>
+    <div class="container mt-5">
+        <select class="form-select w-25" aria-label="Default select example">
+            <option selected>Floor 1 </option>
+            <option value="Floor 2">Floor 2</option>
+            <option value="Floor 3">Floor 3</option>
+            <option value="Floor 4">Floor 4</option>
+        </select>
+
+        <div class="text-end">
+            <button type="button" id="add" class="btn btn-primary mt-4"> Add new Row</button>
+        </div>
+
+        <div class=" table-responsive mt-3 w-100">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr class="text-center">
+                        <th scope="col-3">#</th>
+                        <th scope="col-2">Product name</th>
+                        <th scope="col-2">Height</th>
+                        <th scope="col-3">width</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+
+                    
+
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="{% static 'js/invoice.js' %}"></script>
+
+</html>

@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload</title>
+
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/upload.css' %}">
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="file-upload">
+                <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add
+                    Image</button>
+
+                <div class="image-upload-wrap">
+                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                    <div class="drag-text">
+                        <h3>Drag and drop a file or select add Image</h3>
+                    </div>
+                </div>
+                <div class="file-upload-content">
+                    <img class="file-upload-image" src="#" alt="your image" />
+                    <div class="image-title-wrap">
+                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span
+                                class="image-title">Uploaded Image</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6" style="margin-top:100px">
+            <form class="w-50 d-flex">
+                <input type="text" name="Height" id="" class="form-control text-center" style="margin-left:20px"
+                    placeholder="Height">
+                <input type="text" name="width" id="" class="form-control text-center" style="margin-left:20px"
+                    placeholder="width">
+                <input type="text" name="Floor name" id="" class="form-control text-center" style="margin-left:20px"
+                    placeholder="Floor name">
+            </form>
+
+
+
+
+            <div class=" table-responsive mt-5 w-100">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr class="text-center">
+                            <th scope="col-3">#</th>
+                            <th scope="col-2">Product name</th>
+                            <th scope="col-2">Height</th>
+                            <th scope="col-3">width</th>
+                            <th scope="col-2">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-end" style="margin-top:250px; margin-right:75px">
+                <button type="reset" class="btn btn-secondary"> cancel</button>
+                <button type="button" class="btn btn-primary">submit</button>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+</body>
+
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="{% static 'js/upload.js' %}"></script>
+
+</html>
