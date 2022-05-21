@@ -8,12 +8,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/invoice.css' %}">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
 
 </head>
 
 <body>
-    <div class="container mt-5">
+
+    <header id="header" class="fixed-top d-flex align-items-center header-inner-pages">
+        <div class="container d-flex align-items-center justify-content-between">
+
+            <h1 class="logo"><a href="index.html">Anyar</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href=index.html" class="logo"><img src="assets/'img/logo.png" alt="" class="img-fluid"></a>-->
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto " href="#hero">Home</a></li>
+                    <li><a class="nav-link scrollto" href="#about">About</a></li>
+                    <li><a class="nav-link scrollto" href="#services">Services</a></li>
+                    <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
+                    <li><a class="nav-link scrollto" href="#team">Team</a></li>
+                    <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
+                    <li><a class="active" href="blog.html">Blog</a></li>
+                    <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="#">Drop Down 1</a></li>
+                            <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i
+                                        class="bi bi-chevron-right"></i></a>
+                                <ul>
+                                    <li><a href="#">Deep Drop Down 1</a></li>
+                                    <li><a href="#">Deep Drop Down 2</a></li>
+                                    <li><a href="#">Deep Drop Down 3</a></li>
+                                    <li><a href="#">Deep Drop Down 4</a></li>
+                                    <li><a href="#">Deep Drop Down 5</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Drop Down 2</a></li>
+                            <li><a href="#">Drop Down 3</a></li>
+                            <li><a href="#">Drop Down 4</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+        </div>
+    </header><!-- End Header -->
+
+
+    <div class="container" style="margin-top:100px" >
         <select class="form-select w-25" aria-label="Default select example">
             <option selected>Floor 1 </option>
             <option value="Floor 2">Floor 2</option>
@@ -22,12 +69,12 @@
         </select>
 
         <div class="text-end">
-            <button type="button" id="add" class="btn btn-primary mt-4"> Add new Row</button>
+            <button type="button" id="add" class="btn btn-primary mt-4"> Add Invoice</button>
         </div>
 
-        <div class=" table-responsive mt-3 w-100">
-            <table class="table table-bordered table-hover">
-                <thead class="thead-dark">
+        <div id="tabList" class="table-responsive mt-3 w-100">
+            <table class="table table-bordered" id="invoice_table">
+                <thead>
                     <tr class="text-center">
                         <th scope="col-3">#</th>
                         <th scope="col-2">Product name</th>
@@ -35,25 +82,12 @@
                         <th scope="col-3">width</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
+                <tbody class="text-center">
 
-                    
-
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
+
 
     </div>
 

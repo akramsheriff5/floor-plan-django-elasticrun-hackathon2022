@@ -10,89 +10,116 @@
 
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/upload.css' %}">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
 </head>
 
 <body>
+    <header id="header" class="fixed-top d-flex align-items-center header-inner-pages">
+        <div class="container d-flex align-items-center justify-content-between">
 
-    <div class="row">
-        <div class="col-6">
-            <div class="file-upload">
-                <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add
-                    Image</button>
+            <h1 class="logo"><a href="index.html">Anyar</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href=index.html" class="logo"><img src="assets/'img/logo.png" alt="" class="img-fluid"></a>-->
 
-                <div class="image-upload-wrap">
-                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
-                    <div class="drag-text">
-                        <h3>Drag and drop a file or select add Image</h3>
-                    </div>
-                </div>
-                <div class="file-upload-content">
-                    <img class="file-upload-image" src="#" alt="your image" />
-                    <div class="image-title-wrap">
-                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span
-                                class="image-title">Uploaded Image</span></button>
-                    </div>
-                </div>
-            </div>
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto " href="#hero">Home</a></li>
+                    <li><a class="nav-link scrollto" href="#about">About</a></li>
+                    <li><a class="nav-link scrollto" href="#services">Services</a></li>
+                    <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
+                    <li><a class="nav-link scrollto" href="#team">Team</a></li>
+                    <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
+                    <li><a class="active" href="blog.html">Blog</a></li>
+                    <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="#">Drop Down 1</a></li>
+                            <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i
+                                        class="bi bi-chevron-right"></i></a>
+                                <ul>
+                                    <li><a href="#">Deep Drop Down 1</a></li>
+                                    <li><a href="#">Deep Drop Down 2</a></li>
+                                    <li><a href="#">Deep Drop Down 3</a></li>
+                                    <li><a href="#">Deep Drop Down 4</a></li>
+                                    <li><a href="#">Deep Drop Down 5</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Drop Down 2</a></li>
+                            <li><a href="#">Drop Down 3</a></li>
+                            <li><a href="#">Drop Down 4</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
         </div>
+    </header><!-- End Header -->
 
-        <div class="col-6" style="margin-top:100px">
-            <form class="w-50 d-flex">
-                <input type="text" name="Height" id="" class="form-control text-center" style="margin-left:20px"
-                    placeholder="Height">
-                <input type="text" name="width" id="" class="form-control text-center" style="margin-left:20px"
-                    placeholder="width">
-                <input type="text" name="Floor name" id="" class="form-control text-center" style="margin-left:20px"
-                    placeholder="Floor name">
-            </form>
+    <div class="container-fluid">
+        <div class="row mt-4">
+            <div class="col-6">
+                <div class="file-upload">
+                    <button class="file-upload-btn" type="button"
+                        onclick="$('.file-upload-input').trigger( 'click' )">Add
+                        Image</button>
 
-
-
-
-            <div class=" table-responsive mt-5 w-100">
-                <table class="table table-bordered table-hover">
-                    <thead class="thead-dark">
-                        <tr class="text-center">
-                            <th scope="col-3">#</th>
-                            <th scope="col-2">Product name</th>
-                            <th scope="col-2">Height</th>
-                            <th scope="col-3">width</th>
-                            <th scope="col-2">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <div class="image-upload-wrap">
+                        <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                        <div class="drag-text">
+                            <h3>Drag and drop a file or select add Image</h3>
+                        </div>
+                    </div>
+                    <div class="file-upload-content">
+                        <img class="file-upload-image" src="#" alt="your image" />
+                        <div class="image-title-wrap">
+                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span
+                                    class="image-title">Uploaded Image</span></button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="text-end" style="margin-top:250px; margin-right:75px">
-                <button type="reset" class="btn btn-secondary"> cancel</button>
-                <button type="button" class="btn btn-primary">submit</button>
+            <div class="col-6" style="margin-top:100px">
+                <form class="w-50 d-flex">
+                    <input type="text" name="Height" id="" class="form-control text-center" style="margin-left:20px"
+                        placeholder="Height">
+                    <input type="text" name="width" id="" class="form-control text-center" style="margin-left:20px"
+                        placeholder="width">
+                    <input type="text" name="Floor name" id="" class="form-control text-center" style="margin-left:20px"
+                        placeholder="Floor name">
+                </form>
+
+
+
+
+                <div id="tabList" class="table-responsive mt-4 w-100">
+                    <table class="table table-bordered" id="upload_table">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col-3">#</th>
+                                <th scope="col-2">Product name</th>
+                                <th scope="col-2">Height</th>
+                                <th scope="col-3">width</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-end" style="margin-top:250px; margin-right:75px">
+                    <button type="reset" class="btn btn-secondary"> cancel</button>
+                    <button type="button" class="btn btn-primary">submit</button>
+                </div>
+
+
             </div>
-
-
         </div>
     </div>
+
 
 
 

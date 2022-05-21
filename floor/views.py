@@ -20,3 +20,6 @@ def upload (request):
 
 def invoice (request):
     return render(request, 'invoice.html')
+
+def table (request):
+    return render(request, 'table.html')
