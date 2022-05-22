@@ -11,6 +11,9 @@ urlpatterns = [
     path('upload', views.upload, name='upload'),
     path('invoice', views.invoice, name='invoice'),
     path('jsonWriter', views.jsonWriter, name='jsonWriter'),
+    path('table', views.table, name='table'),
+    path('readFloor', views.readFloor, name='readFloor'),
+    path('uploadInvoice', views.uploadInvoice, name='uploadInvoice'),
 
 ] + static(settings.STATIC_URL, document_root='./static/', )
 

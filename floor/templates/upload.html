@@ -18,74 +18,87 @@
 {%block content %}
 
 <div class="container-fluid py-4">
-    <div class="row">
-        <div class="col-lg-6 col-sm-12 border">
-            <div id="wrapper table-wrap ">
-                <canvas id="canvas" class="text-center">
-                </canvas>
-                <div id="form" class="card shadow-none p-3  bg-light rounded form" style="width: 22rem;">
-                    <form onsubmit="categoryTag(event)" id="tagging_form">
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Category</label>
-                            <input type="text" class="form-control" id="cat" placeholder="Category">
-                        </div>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput2">Width</label>
-                            <input type="text" class="form-control" id="wid" placeholder="Width">
-                        </div>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput2">length</label>
-                            <input type="text" class="form-control" id="len" placeholder="Height">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-                        <button type="button" onclick="clearCircle()" class="btn btn-secondary btn-sm">cancel</button>
-                    </form>
+    <div class="content mt-5">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12 border">
+                <div id="wrapper" class="canWidth">
+                    <canvas id="canvas" class="text-center">
+                    </canvas>
+                    <div id="form" class="card shadow-none p-3  bg-light rounded form" style="width: 22rem;">
+                        <form onsubmit="categoryTag(event)" id="tagging_form">
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">Category</label>
+                                <input type="text" class="form-control" id="cat" placeholder="Category" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="formGroupExampleInput2">Width</label>
+                                <input type="text" class="form-control" id="wid" placeholder="Width" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="formGroupExampleInput2">length</label>
+                                <input type="text" class="form-control" id="len" placeholder="Lengthh" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="formGroupExampleInput2">Quantity</label>
+                                <input type="text" class="form-control" id="quan" placeholder="Quantity" required>
+                            </div>
+                            <div class="mt-2">
+                                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                <button type="button" onclick="clearCircle()"
+                                    class="btn btn-secondary btn-sm">cancel</button>
+
+                            </div>
+                        </form>
+                    </div>
                 </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-12" style="margin-top:100px">
+                <div class="row p-3">
+                    <div class="col-12">
+                        <input type="file" class="form-control text-center btn-primary btn-sm" id="img-input" />Upload
+                        Floor
+
+                    </div>
+                </div>
+                <form class="w-50 d-flex">
+                    <input type="text" name="Height" id="height-floor" class="form-control text-center"
+                        style="margin-left:20px" placeholder="Height">
+                    <input type="text" name="width" id="width-floor" class="form-control text-center"
+                        style="margin-left:20px" placeholder="width">
+                    <input type="text" name="Floor name" id="name-floor" class="form-control text-center"
+                        style="margin-left:20px" placeholder="Floor name">
+                </form>
+
+
+
+
+                <div class=" table-responsive mt-5 w-100">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <th>Area ID</th>
+                            <th>Category</th>
+                            <th>Width</th>
+                            <th>Length</th>
+                            <th>Quantity</th>
+                            <th>Delete</th>
+
+                        </thead>
+                        <tbody id="area_list">
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-end" style="margin-top:250px; margin-right:75px">
+                    <!-- <button type="reset" class="btn btn-secondary"> cancel</button> -->
+                    <button type="button" class="btn btn-primary" id="finalize-json">submit</button>
+                </div>
+
+
             </div>
         </div>
 
-        <div class="col-lg-6 col-sm-12" style="margin-top:100px">
-            <div class="row p-3">
-                <div class="col-12">
-                    <input type="file" class="form-control text-center btn-primary btn-sm" id="uploader" />Upload Floor
-
-                </div>
-            </div>
-            <form class="w-50 d-flex">
-                <input type="text" name="Height" id="height-floor" class="form-control text-center"
-                    style="margin-left:20px" placeholder="Height">
-                <input type="text" name="width" id="width-floor" class="form-control text-center"
-                    style="margin-left:20px" placeholder="width">
-                <input type="text" name="Floor name" id="name-floor" class="form-control text-center"
-                    style="margin-left:20px" placeholder="Floor name">
-            </form>
-
-
-
-
-            <div class=" table-responsive mt-5 w-100">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <th>Area ID</th>
-                        <th>Category</th>
-                        <th>Height</th>
-                        <th>Length</th>
-                        <th>Delete</th>
-
-                    </thead>
-                    <tbody id="area_list">
-
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="text-end" style="margin-top:250px; margin-right:75px">
-                <!-- <button type="reset" class="btn btn-secondary"> cancel</button> -->
-                <button type="button" class="btn btn-primary" id="finalize-json">submit</button>
-            </div>
-
-
-        </div>
     </div>
 </div>
 
@@ -101,24 +114,78 @@
     const canvas = document.getElementById("canvas");
 
     const ctx = canvas.getContext("2d");
-
-    const reader = new FileReader();
+    let box = document.querySelector('.canWidth');
+    let canwidth = box.offsetWidth;
+    let canheight = box.offsetHeight;
+    const MAX_WIDTH = canwidth;
+    const MAX_HEIGHT = canheight;
+    const MIME_TYPE = "image/jpeg";
+    const QUALITY = 0.7;
     const img = new Image();
+    var newWidthDemo;
+    var newHeightDemo;
+    var blobURL;
+    var file;
+    const reader = new FileReader();
+            
 
-    const uploadImage = (e) => {
-        reader.onload = () => {
-            img.onload = () => {
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.drawImage(img, 0, 0);
-            };
-            img.src = reader.result;
+    const input = document.getElementById("img-input");
+    input.onchange = function (ev) {
+    
+        file = ev.target.files[0]; // get the file
+        reader.readAsDataURL(file);
+       
+        blobURL = URL.createObjectURL(file);
+
+        img.src = blobURL;
+        img.onerror = function () {
+            URL.revokeObjectURL(this.src);
+            // Handle the failure properly
+            console.log("Cannot load image");
         };
-        reader.readAsDataURL(e.target.files[0]);
+        img.onload = function () {
+            URL.revokeObjectURL(this.src);
+            const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
+            newWidthDemo = newWidth
+            newHeightDemo = newHeight
+            // const canvas = document.createElement("canvas");
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+            // const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, newWidth, newHeight);
+            canvas.toBlob(
+                blob => {
+                    // Handle the compressed image. es. upload or save in local state
+                    //   displayInfo('Original file', file);
+                    //   displayInfo('Compressed file', blob);
+                },
+                MIME_TYPE,
+                QUALITY);
+
+            // document.getElementById("root").append(canvas);
+        };
     };
 
-    const imageLoader = document.getElementById("uploader");
-    imageLoader.addEventListener("change", uploadImage);
+    // const reader = new FileReader();
+    // const img = new Image();
+    // img.width = 800;
+    // img.height = 800;
+
+    // const uploadImage = (e) => {
+    //     reader.onload = () => {
+    //         img.onload = () => {
+    //             canvas.width = img.width;
+    //             canvas.height = img.height;
+
+    //             ctx.drawImage(img, 0, 0);
+    //         };
+    //         img.src = reader.result;
+    //     };
+    //     reader.readAsDataURL(e.target.files[0]);
+    // };
+
+    // const imageLoader = document.getElementById("uploader");
+    // imageLoader.addEventListener("change", uploadImage);
 
     // function download() {
     //     const image = canvas.toDataURL();
@@ -179,7 +246,7 @@
 
     function redraw() {
         console.log(img, "triggered >>>>>>>>>>>>>>>>>>>>>>", tagCord)
-        ctx.drawImage(img, 0, 0);
+        ctx.drawImage(img, 0, 0, newWidthDemo, newHeightDemo);
         // tagJson.pop();
         tagJson.map((ele, inx) => {
 
@@ -225,12 +292,14 @@
         var cat = $('#cat').val();
         var wid = $('#wid').val();
         var len = $('#len').val();
+        var quan = $('#quan').val();
 
         tagJson.push({
             'areaNumber': cat,
             'dimension': {
                 'width': wid,
                 'length': len,
+                'quantity': quan,
                 'x': recCord.x,
                 'y': recCord.y,
             },
@@ -289,6 +358,7 @@
                     <td>${ele['areaNumber']}</td>
                     <td>${ele['dimension']['width']}</td>
                     <td>${ele['dimension']['length']}</td>
+                    <td>${ele['dimension']['quantity']}</td>
                     <td><button  type="button" onclick="deleteArea(${inx})" class="btn btn-danger btn-sm"> Delete </button></td>
                     </tr>`)
 
@@ -329,7 +399,7 @@
     function mouseMove(e) {
         if (drag) {
             ctx.clearRect(0, 0, 500, 500);
-            ctx.drawImage(img, 0, 0);
+            ctx.drawImage(img, 0, 0, newWidthDemo, newHeightDemo);
             rect.w = (e.pageX - this.offsetLeft) - rect.startX;
             rect.h = (e.pageY - this.offsetTop) - rect.startY;
             ctx.strokeStyle = 'red';
@@ -353,21 +423,61 @@
 
         console.log(jsonFinalize, "::::::::::::::", $('#name-floor').val())
 
-       var data = {
+        var data = {
             floorname: $('#name-floor').val(),
-            json: JSON.stringify(jsonFinalize)
+            json: JSON.stringify(jsonFinalize),
+            img:reader.result.split(',')[1]
         }
         $.ajax({
             type: "POST",
             url: "jsonWriter",
             async: false,
-            data:data,
+            data: data,
             complete: function (data) {
-            console.log(data,":::::::::::::::::::::");
-            wait = false;
-        }
-    });
+                // location.reload();
+                console.log(file, ":::")
+            }
+        });
     })
+
+   
+</script>
+
+
+<script>
+    function calculateSize(img, maxWidth, maxHeight) {
+        let width = img.width;
+        let height = img.height;
+
+        // calculate the width and height, constraining the proportions
+        if (width > height) {
+            if (width > maxWidth) {
+                height = Math.round(height * maxWidth / width);
+                width = maxWidth;
+            }
+        } else {
+            if (height > maxHeight) {
+                width = Math.round(width * maxHeight / height);
+                height = maxHeight;
+            }
+        }
+        return [width, height];
+    }
+
+    // Utility functions for demo purpose
+
+    function displayInfo(label, file) {
+        const p = document.createElement('p');
+        p.innerText = `${label} - ${readableBytes(file.size)}`;
+        document.getElementById('root').append(p);
+    }
+
+    function readableBytes(bytes) {
+        const i = Math.floor(Math.log(bytes) / Math.log(1024)),
+            sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+        return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
+    }
 </script>
 {%endblock%}
 
