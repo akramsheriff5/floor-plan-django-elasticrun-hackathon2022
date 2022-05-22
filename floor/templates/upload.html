@@ -296,10 +296,10 @@
 
         tagJson.push({
             'areaNumber': cat,
+             'quantity': quan,
             'dimension': {
                 'width': wid,
                 'length': len,
-                'quantity': quan,
                 'x': recCord.x,
                 'y': recCord.y,
             },
@@ -358,7 +358,7 @@
                     <td>${ele['areaNumber']}</td>
                     <td>${ele['dimension']['width']}</td>
                     <td>${ele['dimension']['length']}</td>
-                    <td>${ele['dimension']['quantity']}</td>
+                    <td>${ele['quantity']}</td>
                     <td><button  type="button" onclick="deleteArea(${inx})" class="btn btn-danger btn-sm"> Delete </button></td>
                     </tr>`)
 
@@ -418,6 +418,10 @@
         jsonFinalize['totalSiteDimension'] = {
             width: $('#width-floor').val(),
             length: $('#height-floor').val()
+        }
+        jsonFinalize['canvasDimensions']= {
+                'width':newWidthDemo,
+                'height':newHeightDemo
         }
         jsonFinalize['details'] = tagJson
 
