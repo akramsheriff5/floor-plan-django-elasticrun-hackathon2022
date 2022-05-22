@@ -10,7 +10,7 @@
 // })
 
 var currentInvoice ;
-
+ var currentFloor;
 $.get('readFloor',(res)=>{
 
 var floorDet = []
@@ -35,7 +35,7 @@ $('#selectFloor').append(temp)
 $('#selectFloor').on('change', ()=>{
     $('#invoice_table').html('')
     console.log(floorDet,"::::::::::")
-    var currentFloor = $( "select#selectFloor option:selected" ).val()
+     currentFloor = $( "select#selectFloor option:selected" ).val()
     var curfloorID = floorDet.indexOf(currentFloor)
     var floor_name =res[curfloorID][currentFloor]['details']
     currentInvoice = res[curfloorID][currentFloor]
@@ -47,9 +47,9 @@ $('#selectFloor').on('change', ()=>{
         <td>${floor_name[i]['areaNumber']}</td>
         <td>${floor_name[i]['dimension']['width']}</td>
         <td>${floor_name[i]['dimension']['length']}</td>
-        <td>${floor_name[i]['dimension']['quantity']}</td>
+        <td>${floor_name[i]['quantity']}</td>
         <td><input type="text" id="${floor_name[i]['areaNumber']}-net"  value="0"/></td>
-        <td><button class="btn btn-success btn-sm" onclick="addProduct(${floor_name[i]['areaNumber']})">ADD</button></td>
+        <td><button class="btn btn-success btn-sm" onclick="addProduct('${floor_name[i]['areaNumber']}')">ADD</button></td>
         </tr>`
     }
     $('#invoice_table').append(tbody)
@@ -63,7 +63,8 @@ $('#selectFloor').on('change', ()=>{
             type: "POST",
             url: "uploadInvoice",
             async: false,
-            data: {invoice:JSON.stringify(currentInvoice)},
+            data: {invoice:JSON.stringify(currentInvoice),
+            floorname: currentFloor},
             complete: function (data) {
                 alert('Successfully uploaded')
             }
@@ -91,8 +92,9 @@ function addProduct(id){
     var productQ = $(`#${id}-net`).val()
 
     currentInvoice['details'].map((ele,inx)=>{
-        if(ele.areaNumber == id && currentInvoice['details'][inx]['dimension']['quantity'] >= productQ){
-            currentInvoice['details'][inx]['dimension']["quantityR"] = productQ
+    console.log(id, ele.areaNumber)
+        if(ele.areaNumber == id && currentInvoice['details'][inx]['quantity'] >= productQ){
+            currentInvoice['details'][inx]["quantityR"] = productQ
         }
         else{
             alert('Enter less number of units')
