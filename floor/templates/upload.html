@@ -1,49 +1,63 @@
+{%extends "layout.html"%}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload</title>
+{%block custom_styles %}
+<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/upload.css' %}">
+<style>
+    .form {
+        display: none;
+    }
 
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/upload.css' %}">
-</head>
+    .table-wrap {
+        border: 2px solid blue;
+        position: relative;
+    }
+</style>
+{%endblock%}
+{%block content %}
 
-<body>
-
+<div class="container-fluid py-4">
     <div class="row">
-        <div class="col-6">
-            <div class="file-upload">
-                <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add
-                    Image</button>
-
-                <div class="image-upload-wrap">
-                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
-                    <div class="drag-text">
-                        <h3>Drag and drop a file or select add Image</h3>
-                    </div>
-                </div>
-                <div class="file-upload-content">
-                    <img class="file-upload-image" src="#" alt="your image" />
-                    <div class="image-title-wrap">
-                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span
-                                class="image-title">Uploaded Image</span></button>
-                    </div>
+        <div class="col-lg-6 col-sm-12 border">
+            <div id="wrapper table-wrap ">
+                <canvas id="canvas" class="text-center">
+                </canvas>
+                <div id="form" class="card shadow-none p-3  bg-light rounded form" style="width: 22rem;">
+                    <form onsubmit="categoryTag(event)" id="tagging_form">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Category</label>
+                            <input type="text" class="form-control" id="cat" placeholder="Category">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Width</label>
+                            <input type="text" class="form-control" id="wid" placeholder="Width">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">length</label>
+                            <input type="text" class="form-control" id="len" placeholder="Height">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                        <button type="button" onclick="clearCircle()" class="btn btn-secondary btn-sm">cancel</button>
+                    </form>
                 </div>
             </div>
         </div>
 
-        <div class="col-6" style="margin-top:100px">
+        <div class="col-lg-6 col-sm-12" style="margin-top:100px">
+            <div class="row p-3">
+                <div class="col-12">
+                    <input type="file" class="form-control text-center btn-primary btn-sm" id="uploader" />Upload Floor
+
+                </div>
+            </div>
             <form class="w-50 d-flex">
-                <input type="text" name="Height" id="" class="form-control text-center" style="margin-left:20px"
-                    placeholder="Height">
-                <input type="text" name="width" id="" class="form-control text-center" style="margin-left:20px"
-                    placeholder="width">
-                <input type="text" name="Floor name" id="" class="form-control text-center" style="margin-left:20px"
-                    placeholder="Floor name">
+                <input type="text" name="Height" id="height-floor" class="form-control text-center"
+                    style="margin-left:20px" placeholder="Height">
+                <input type="text" name="width" id="width-floor" class="form-control text-center"
+                    style="margin-left:20px" placeholder="width">
+                <input type="text" name="Floor name" id="name-floor" class="form-control text-center"
+                    style="margin-left:20px" placeholder="Floor name">
             </form>
 
 
@@ -51,54 +65,310 @@
 
             <div class=" table-responsive mt-5 w-100">
                 <table class="table table-bordered table-hover">
-                    <thead class="thead-dark">
-                        <tr class="text-center">
-                            <th scope="col-3">#</th>
-                            <th scope="col-2">Product name</th>
-                            <th scope="col-2">Height</th>
-                            <th scope="col-3">width</th>
-                            <th scope="col-2">Delete</th>
-                        </tr>
+                    <thead>
+                        <th>Area ID</th>
+                        <th>Category</th>
+                        <th>Height</th>
+                        <th>Length</th>
+                        <th>Delete</th>
+
                     </thead>
-                    <tbody class="text-center">
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
+                    <tbody id="area_list">
 
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
 
             <div class="text-end" style="margin-top:250px; margin-right:75px">
-                <button type="reset" class="btn btn-secondary"> cancel</button>
-                <button type="button" class="btn btn-primary">submit</button>
+                <!-- <button type="reset" class="btn btn-secondary"> cancel</button> -->
+                <button type="button" class="btn btn-primary" id="finalize-json">submit</button>
             </div>
 
 
         </div>
     </div>
+</div>
 
 
-
-</body>
-
+{%endblock%}
+{%block script %}
 <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="{% static 'js/upload.js' %}"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+</script> -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+    const canvas = document.getElementById("canvas");
+
+    const ctx = canvas.getContext("2d");
+
+    const reader = new FileReader();
+    const img = new Image();
+
+    const uploadImage = (e) => {
+        reader.onload = () => {
+            img.onload = () => {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+            };
+            img.src = reader.result;
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    };
+
+    const imageLoader = document.getElementById("uploader");
+    imageLoader.addEventListener("change", uploadImage);
+
+    // function download() {
+    //     const image = canvas.toDataURL();
+    //     const link = document.createElement("a");
+    //     link.href = image;
+    //     link.download = "image.png";
+    //     link.click();
+    // }
+
+    // document.querySelector("button").addEventListener("click", download);
+</script>
+<script>
+    var tagJson = []
+    var tagCord = []
+    $("#canvas").click(function (e) {
+        getPosition(e);
+        var getid = e.target.id;
+        var mouseX = e.pageX;
+        var mouseY = e.pageY;
+
+        console.log(mouseX + " " + mouseY); //shows coordinates
+
+        $('#form').show();
+        $('#form').offset({
+            left: mouseX,
+            top: mouseY
+        });
+    });
+
+    var pointSize = 6;
+
+    function getPosition(event) {
+        var rect = canvas.getBoundingClientRect();
+        var x = event.clientX - rect.left;
+        var y = event.clientY - rect.top;
+
+        // drawCoordinates(x, y);
+        tagCord.push({
+            x: x,
+            y: y
+        })
+        console.log(tagCord, ":::::::::::::::::::::")
+    }
+
+    function drawCoordinates(x, y, cat) {
+        var ctx = document.getElementById("canvas").getContext("2d");
+
+        console.log(x, y, "??????????????????", cat)
+        ctx.fillStyle = "blue"; // Red color
+        ctx.beginPath();
+        ctx.arc(x, y, pointSize, 0, Math.PI * 2, true);
+        ctx.fill();
+
+        ctx.fillStyle = "white";
+        ctx.font = '15px serif';
+        ctx.fillText(tagJson.length, x - 3, y + 5);
+    }
+
+    function redraw() {
+        console.log(img, "triggered >>>>>>>>>>>>>>>>>>>>>>", tagCord)
+        ctx.drawImage(img, 0, 0);
+        // tagJson.pop();
+        tagJson.map((ele, inx) => {
+
+            ctx.strokeStyle = 'red';
+            ctx.strokeRect(ele['x0'], ele['y0'], ele['x1'], ele['y1']);
+
+            ctx.fillStyle = "blue"; // Red color
+            ctx.beginPath();
+
+
+
+            ctx.arc(ele['dimension'].x, ele['dimension'].y, pointSize, 0, Math.PI * 2, true);
+            ctx.fill();
+
+            ctx.fillStyle = "white";
+            ctx.font = '15px serif';
+            ctx.fillText(inx + 1, ele['dimension'].x - 3, ele['dimension'].y + 5);
+
+            // draw rec
+
+
+        })
+        areaOverview()
+    }
+</script>
+<script>
+    // $('.form').on("click", function (event) {
+    //     $(this).hide();
+    // })
+
+    const deleteArea = async (id) => {
+        console.log('came>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', tagJson)
+        await tagJson.splice(id, 1)
+        console.log(tagJson, "::::::::::::")
+        await redraw()
+
+    }
+
+    const categoryTag = (e) => {
+        e.preventDefault();
+        var recCord = tagCord[tagCord.length - 1];
+        console.log(recCord, ":::::::::::::::::::::");
+        var cat = $('#cat').val();
+        var wid = $('#wid').val();
+        var len = $('#len').val();
+
+        tagJson.push({
+            'areaNumber': cat,
+            'dimension': {
+                'width': wid,
+                'length': len,
+                'x': recCord.x,
+                'y': recCord.y,
+            },
+            'x0': rect.startX,
+            'y0': rect.startY,
+            'x1': rect.w,
+            'y1': rect.h,
+        })
+        // var centroidx = (rect.startX + rect.startY)/2 
+        // var centroidy = (rect.w + rect.h) /2
+        // rect.startX, rect.startY, rect.w, rect.h
+        areaOverview()
+        drawCoordinates(recCord.x, recCord.y, cat)
+        redraw()
+
+
+        $('#tagging_form').trigger('reset')
+        $('#form').hide()
+
+        console.log(tagJson, "????????????")
+
+    }
+
+    const clearCircle = () => {
+        var lastCircle = tagCord[tagCord.length - 1]
+        var radius = 4
+        // ctx.beginPath();
+        console.log(lastCircle.x, lastCircle.y, radius, 0, 2 * Math.PI, false);
+        // ctx.save();
+        // ctx.globalCompositeOperation = 'destination-out';
+        // ctx.beginPath();
+        // ctx.arc(lastCircle.x, lastCircle.y, radius, 0, 2 * Math.PI, false);
+        // ctx.fill();
+        // ctx.restore();
+        // ctx.arc(lastCircle.x, lastCircle.y, radius, 0, 2 * Math.PI, false);
+        // ctx.clip();
+        // ctx.clearRect(lastCircle.x - radius - 1, lastCircle.x - radius - 1,
+        //     radius * 2 + 2, radius * 2 + 2);
+
+        $('#tagging_form').trigger('reset')
+        $('#form').hide()
+        tagCord.pop()
+        console.log(tagCord, "???????")
+        redraw()
+    };
+</script>
+<script>
+    // tabel$('#area_list').$('#$('#area_list').$('#area_list').$('#area_list').rea_list').
+    const areaOverview = () => {
+
+        var temp = ''
+        $('#area_list').html('')
+        tagJson.map((ele, inx) => {
+            $('#area_list').append(`<tr>
+                    <td>${inx + 1}</td>
+                    <td>${ele['areaNumber']}</td>
+                    <td>${ele['dimension']['width']}</td>
+                    <td>${ele['dimension']['length']}</td>
+                    <td><button  type="button" onclick="deleteArea(${inx})" class="btn btn-danger btn-sm"> Delete </button></td>
+                    </tr>`)
+
+        })
+        // $('#area_list').append(temp)
+        // console.log(temp,"?????????")
+
+    }
+</script>
+
+<script>
+    var finalBound = []
+    var rect = {};
+    var drag = false;
+    var imageObj = null;
+
+    function init() {
+        // imageObj = new Image();
+        // imageObj.onload = function () {
+        //     ctx.drawImage(imageObj, 0, 0);
+        // };
+        // imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
+        canvas.addEventListener('mousedown', mouseDown, false);
+        canvas.addEventListener('mouseup', mouseUp, false);
+        canvas.addEventListener('mousemove', mouseMove, false);
+    }
+
+    function mouseDown(e) {
+        rect.startX = e.pageX - this.offsetLeft;
+        rect.startY = e.pageY - this.offsetTop;
+        drag = true;
+    }
+
+    function mouseUp() {
+        drag = false;
+    }
+
+    function mouseMove(e) {
+        if (drag) {
+            ctx.clearRect(0, 0, 500, 500);
+            ctx.drawImage(img, 0, 0);
+            rect.w = (e.pageX - this.offsetLeft) - rect.startX;
+            rect.h = (e.pageY - this.offsetTop) - rect.startY;
+            ctx.strokeStyle = 'red';
+            ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
+            console.log(rect, "??????????")
+
+        }
+    }
+    //
+    init();
+
+    var jsonFinalize = {}
+    $('#finalize-json').on('click', (e) => {
+        e.stopPropagation()
+        console.log(tagJson, "::::::::::::::")
+        jsonFinalize['totalSiteDimension'] = {
+            width: $('#width-floor').val(),
+            length: $('#height-floor').val()
+        }
+        jsonFinalize['details'] = tagJson
+
+        console.log(jsonFinalize, "::::::::::::::", $('#name-floor').val())
+
+       var data = {
+            floorname: $('#name-floor').val(),
+            json: JSON.stringify(jsonFinalize)
+        }
+        $.ajax({
+            type: "POST",
+            url: "jsonWriter",
+            async: false,
+            data:data,
+            complete: function (data) {
+            console.log(data,":::::::::::::::::::::");
+            wait = false;
+        }
+    });
+    })
+</script>
+{%endblock%}
 
 </html>
