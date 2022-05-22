@@ -6,7 +6,7 @@ from django.http.response import JsonResponse
 import glob
 
 from django.core.files.storage import FileSystemStorage
-from .Analytics import hetmap
+from .Analytics import HeatMap
 
 # Create your views here.
 
@@ -76,6 +76,8 @@ def readFloor(request):
 def uploadInvoice(request):
     invoiceQuantity = json.loads(request.POST['invoice'])
     print(invoiceQuantity)
-    hetmap()
+    HeatMap()
 
     return JsonResponse(invoiceQuantity,safe=False)
+
+
