@@ -66,7 +66,8 @@ $('#selectFloor').on('change', ()=>{
             data: {invoice:JSON.stringify(currentInvoice),
             floorname: currentFloor},
             complete: function (data) {
-                alert('Successfully uploaded')
+                console.log(data,"::::")
+                $('#heatmap').html(` <img src="data:image/png;base64,${data['responseJSON']['res']}"/>`)
             }
         });
 

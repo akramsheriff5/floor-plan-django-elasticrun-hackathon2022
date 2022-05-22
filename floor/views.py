@@ -98,7 +98,7 @@ def uploadInvoice(request):
             image_path = image
         else:
             continue
-    HeatMap(invoiceQuantity, SKU_Json_Path, image_path)
+    res = HeatMap(invoiceQuantity, SKU_Json_Path, image_path)
+    return JsonResponse({'res':res.decode("utf-8")},safe=False)
 
 
-    return JsonResponse(invoiceQuantity,safe=False)
