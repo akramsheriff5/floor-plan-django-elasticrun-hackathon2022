@@ -93,14 +93,11 @@ function addProduct(id){
     var productQ = $(`#${id}-net`).val()
 
     currentInvoice['details'].map((ele,inx)=>{
-    console.log(id, ele.areaNumber)
-        if(ele.areaNumber == id && currentInvoice['details'][inx]['quantity'] >= productQ){
-            currentInvoice['details'][inx]["quantityR"] = productQ
+    console.log( currentInvoice['details'][inx]['quantity'], productQ)
+        if(ele.areaNumber == id){
+                currentInvoice['details'][inx]["quantityR"] = productQ
         }
-        else{
-            alert('Enter less number of units')
-            $(`#${id}-net`).val(0)
-        }
+
     })
 
     console.log(currentInvoice,"finalize")
